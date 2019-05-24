@@ -1,7 +1,12 @@
 <template>
   <div>
     <form v-on:submit="search">
-      <input type="search" placeholder="Start searching for TV show..." v-model="query">
+      <input
+        name="query"
+        type="search"
+        placeholder="Start searching for TV show..."
+        :value="this.$route.query.q"
+      >
       <button type="submit">Search</button>
     </form>
 
@@ -13,23 +18,35 @@
 import Results from '@/components/search/Results.vue';
 import { searchForShows } from '@/lib/api';
 
+async function search(query) {
+  try {
+    const response = await searchForShows(query);
+    const data = await response.json();
+    this.results = data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export default {
   data: () => ({
-    query: 'batman',
     results: [],
   }),
   methods: {
     async search(e) {
       e.preventDefault();
-
-      try {
-        const response = await searchForShows(this.query);
-        const data = await response.json();
-        this.results = data;
-      } catch (error) {
-        console.log(error);
-      }
+      const q = e.target.query.value;
+      this.$router.replace({ name: 'search', query: { q } });
     },
+  },
+  async mounted() {
+    const query = this.$route.query.q || '';
+    await search.call(this, query);
+  },
+  async beforeRouteUpdate(to, from, next) {
+    const query = to.query.q || '';
+    await search.call(this, query);
+    next();
   },
   components: {
     Results,
