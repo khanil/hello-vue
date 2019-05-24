@@ -12,7 +12,11 @@
     <template v-else>
       <h1>{{this.show.name}}</h1>
       <p v-html="this.show.summary"></p>
-      <img :src="this.show.image.medium" :alt="`${this.show.name} show image`">
+      <img
+        v-if="this.show.image "
+        :src="this.show.image.medium"
+        :alt="`${this.show.name} show image`"
+      >
     </template>
   </div>
 </template>
