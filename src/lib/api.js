@@ -1,4 +1,4 @@
-const API = 'http://api.tvmaze.com';
+const API = 'https://api.tvmaze.com';
 
 // eslint-disable-next-line import/prefer-default-export
 export function searchForShows(query) {
