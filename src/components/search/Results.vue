@@ -3,7 +3,9 @@
     <p v-if="results.length" class="result-summary">Found {{results.length}} shows:</p>
 
     <ul>
-      <li v-for="result in results" v-bind:key="result.id">{{result.show.name}}</li>
+      <li v-for="result in results" v-bind:key="result.id">
+        <router-link :to="`/show/${result.show.id}`">{{result.show.name}}</router-link>
+      </li>
     </ul>
   </div>
 </template>
