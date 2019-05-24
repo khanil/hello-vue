@@ -29,6 +29,7 @@ header {
   align-items: center;
   padding: 15px 0 14px;
   border-bottom: 1px solid $border-color;
+  margin-bottom: 25px;
 }
 
 .brand-logo {
